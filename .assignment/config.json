@@ -7,14 +7,26 @@
   "version": 1,
   "config_version": 1,
   "auto_grade": {
-    "enable": false,
+    "enable": true,
     "upload_output": true,
     "steps": [
       {
         "title": "Step 1",
         "timeout": 60,
-        "command": "make test",
-        "score": 100
+        "command": "echo 'Hello, World!'",
+        "score": 25
+      },
+      {
+        "title": "Step 2",
+        "timeout": 1,
+        "command": "sleep 5",
+        "score": 25
+      },
+      {
+        "title": "Step 3",
+        "timeout": 1,
+        "command": "exit 1",
+        "score": 50
       }
     ]
   }
