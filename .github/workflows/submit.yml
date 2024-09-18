@@ -2,12 +2,15 @@ name: Submit Assignment
 
 on: [push, workflow_dispatch]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   submit:
     runs-on: ubuntu-latest
     env:
         project: '.LoongsonNeuq/LoongsonNeuq.AssignmentSubmit/LoongsonNeuq.AssignmentSubmit.csproj'
-        GITHUB_TOKEN: ${{ secrets.SUMMARY_TOKEN }}
 
     steps:
     - uses: actions/checkout@v4
@@ -29,4 +32,6 @@ jobs:
 
     - name: Submit Assignment
       run: dotnet run --project ${{ env.project }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
