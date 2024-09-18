@@ -20,6 +20,7 @@ jobs:
     - name: Checkout Submit Solution
       uses: actions/checkout@v4
       with:
+        ref: 'submit-to-branch'
         repository: 'Loongson-neuq/LoongsonNeuq'
         path: '.LoongsonNeuq'
     
