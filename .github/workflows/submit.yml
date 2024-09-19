@@ -18,7 +18,13 @@ jobs:
     - name: Grant Permission
       run: chmod +x ${{ env.SAVE_PATH }}
 
+    - name: Extract Binary
+      run: ./${{ env.SAVE_PATH }} --appimage-extract
+
+    - name: Grant Permission to Extracted Binary
+      run: chmod +x ./squashfs-root/AppRun
+
     - name: Submit Assignment
-      run: ./${{ env.SAVE_PATH }} 
+      run: ./squashfs-root/AppRun
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
