@@ -2,36 +2,23 @@ name: Submit Assignment
 
 on: [push, workflow_dispatch]
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   submit:
     runs-on: ubuntu-latest
     env:
-        project: '.LoongsonNeuq/LoongsonNeuq.AssignmentSubmit/LoongsonNeuq.AssignmentSubmit.csproj'
+        URL: "https://github.com/Loongson-neuq/LoongsonNeuq/releases/download/assignment-submit-release/AssignmentSubmit.AppImage"
+        SAVE_PATH: "AssignmentSubmit.AppImage"
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+    - name: Download AssignmentSubmit Binary
+      run: wget ${{ env.URL }} -O ${{ env.SAVE_PATH }}
 
-    - name: Checkout Submit Solution
-      uses: actions/checkout@v4
-      with:
-        ref: 'submit-to-branch'
-        repository: 'Loongson-neuq/LoongsonNeuq'
-        path: '.LoongsonNeuq'
-    
-    - name: Restore Submit Solution
-      run: dotnet restore ${{ env.project }}
+    - name: Grant Permission
+      run: chmod +x ${{ env.SAVE_PATH }}
 
     - name: Submit Assignment
-      run: dotnet run --project ${{ env.project }}
+      run: ./${{ env.SAVE_PATH }} 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
