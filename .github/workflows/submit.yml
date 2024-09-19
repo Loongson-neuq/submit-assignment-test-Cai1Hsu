@@ -22,6 +22,7 @@ jobs:
     - name: Grant Permission
       run: chmod +x ${{ env.SAVE_PATH }}
 
+    # AppImage requires libfuse2 to run, install it costs a lot of time
     - name: Extract Binary
       run: ./${{ env.SAVE_PATH }} --appimage-extract
 
